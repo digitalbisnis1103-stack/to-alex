@@ -1,0 +1,954 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>A Little Birthday Surprise ♡</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Patrick Hand', cursive;
+    background: #eeeeeb;
+}
+
+#app {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.page {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(25px);
+    transition: opacity .6s ease, transform .6s ease, visibility .6s;
+    scrollbar-width: none;
+}
+
+.page::-webkit-scrollbar {
+    display: none;
+}
+
+.page.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+/* FIRST PAGE */
+
+#page1 {
+    min-height: 100%;
+    background: #eeeeeb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 25px 20px 45px;
+}
+
+.intro-title {
+    color: #151515;
+    font-size: clamp(29px, 8vw, 38px);
+    line-height: 1;
+    margin-bottom: clamp(22px, 6vw, 32px);
+}
+
+/* ENVELOPE */
+
+.envelope-container {
+    position: relative;
+    width: clamp(210px, 62vw, 260px);
+    height: clamp(140px, 42vw, 170px);
+    cursor: pointer;
+    margin-bottom: clamp(24px, 7vw, 40px);
+    animation: envelopeFloat 2.2s ease-in-out infinite;
+}
+
+@keyframes envelopeFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+}
+
+.envelope {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 90%;
+    background: #ef6872;
+    border-radius: 9px;
+    overflow: hidden;
+}
+
+.envelope::before,
+.envelope::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-top: calc(clamp(140px, 42vw, 170px) * .45) solid transparent;
+    z-index: 3;
+}
+
+.envelope::before {
+    left: 0;
+    border-right: calc(clamp(210px, 62vw, 260px) / 2) solid #e85d68;
+}
+
+.envelope::after {
+    right: 0;
+    border-left: calc(clamp(210px, 62vw, 260px) / 2) solid #e85d68;
+}
+
+.envelope-flap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: calc(clamp(210px, 62vw, 260px) / 2) solid transparent;
+    border-right: calc(clamp(210px, 62vw, 260px) / 2) solid transparent;
+    border-top: calc(clamp(140px, 42vw, 170px) * .46) solid #f17c85;
+    z-index: 6;
+    transform-origin: top center;
+    transition: transform .8s ease;
+}
+
+.envelope-heart {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -5%);
+    z-index: 10;
+    color: #ed1c24;
+    font-family: Arial, sans-serif;
+    font-size: clamp(36px, 11vw, 48px);
+}
+
+.envelope-container.open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+.email-hint {
+    color: #151515;
+    font-size: clamp(25px, 7.5vw, 33px);
+    line-height: 1.1;
+}
+
+/* SECOND PAGE */
+
+#page2 {
+    width: 100%;
+    height: 100%;
+    background: #eeeeeb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(18px, 5vw, 45px);
+}
+
+.email-card {
+    width: min(90vw, 850px);
+    min-height: min(58vh, 470px);
+    background: #ed1c27;
+    border-radius: clamp(16px, 4vw, 25px);
+    color: white;
+    padding: clamp(28px, 7vw, 45px) clamp(25px, 7vw, 45px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+    transform: rotate(-1deg);
+}
+
+.email-label {
+    display: block;
+    font-size: clamp(18px, 5vw, 24px);
+    line-height: 1;
+    margin-bottom: 2px;
+}
+
+.email-value {
+    display: block;
+    font-size: clamp(18px, 5vw, 24px);
+    line-height: 1.1;
+    margin-bottom: 6px;
+    overflow-wrap: anywhere;
+}
+
+.email-message-label {
+    margin-top: clamp(22px, 6vw, 35px);
+    margin-bottom: 10px;
+    font-size: clamp(18px, 5vw, 24px);
+}
+
+.email-message {
+    font-size: clamp(18px, 5vw, 24px);
+    line-height: 1.3;
+    margin-bottom: clamp(40px, 10vw, 75px);
+}
+
+.attachment {
+    display: block;
+    margin: auto;
+    border: none;
+    background: none;
+    color: white;
+    font-family: 'Patrick Hand', cursive;
+    font-size: clamp(18px, 5vw, 24px);
+    text-decoration: underline;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.attachment:hover {
+    transform: scale(1.05);
+}
+
+.attachment:active {
+    transform: scale(.92);
+}
+
+/* BIRTHDAY PAGE */
+
+#page3 {
+    width: 100%;
+    min-height: 100%;
+    background: #ed1c24;
+    color: white;
+    padding-bottom: 60px;
+}
+
+.bunting {
+    position: relative;
+    width: 100%;
+    height: clamp(45px, 12vw, 65px);
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.bunting-line {
+    position: absolute;
+    top: 10px;
+    left: -5%;
+    width: 110%;
+    height: 2px;
+    background: #f5e8d0;
+}
+
+.flag {
+    width: 0;
+    height: 0;
+    border-left: clamp(12px, 4vw, 18px) solid transparent;
+    border-right: clamp(12px, 4vw, 18px) solid transparent;
+    border-top: clamp(23px, 7vw, 34px) solid #eee1c6;
+}
+
+.flag:nth-child(2n) {
+    border-top-color: #2fa9ae;
+}
+
+.flag:nth-child(3n) {
+    border-top-color: #f0dcb9;
+}
+
+.flag:nth-child(4n) {
+    border-top-color: #d74e56;
+}
+
+.birthday-content {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    padding: 15px clamp(20px, 6vw, 40px) 50px;
+}
+
+/* PHOTO */
+
+.photo-area {
+    position: relative;
+    width: 100%;
+    min-height: clamp(245px, 68vw, 310px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.photo-wrapper {
+    position: relative;
+    width: clamp(195px, 58vw, 230px);
+    height: clamp(235px, 68vw, 275px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.person-photo {
+    position: relative;
+    z-index: 4;
+    width: clamp(160px, 48vw, 195px);
+    height: clamp(195px, 57vw, 225px);
+    object-fit: contain;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    animation: photoSway 3s ease-in-out infinite;
+    transform-origin: center center;
+}
+
+@keyframes photoSway {
+    0%   { transform: rotate(-3deg) translateY(0); }
+    25%  { transform: rotate(2deg) translateY(-3px); }
+    50%  { transform: rotate(-1deg) translateY(0); }
+    75%  { transform: rotate(3deg) translateY(-3px); }
+    100% { transform: rotate(-3deg) translateY(0); }
+}
+
+/* PHOTO DECORATIONS */
+
+.photo-star {
+    position: absolute;
+    z-index: 8;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    -webkit-text-stroke: 2px white;
+}
+
+.star-blue {
+    color: #1f477d;
+    font-size: clamp(30px, 9vw, 42px);
+    left: 0;
+    top: 38px;
+}
+
+.star-blue-small {
+    color: #1f477d;
+    font-size: clamp(21px, 6vw, 28px);
+    left: 18px;
+    top: 95px;
+}
+
+.star-red {
+    color: #ed1c24;
+    font-size: clamp(34px, 10vw, 47px);
+    right: 0;
+    top: 20px;
+}
+
+.star-green {
+    color: #52a45d;
+    font-size: clamp(25px, 7vw, 33px);
+    right: 3px;
+    top: 92px;
+}
+
+.star-yellow {
+    color: #e6b632;
+    font-size: clamp(23px, 7vw, 30px);
+    right: 17px;
+    bottom: 45px;
+}
+
+/* PARTY HAT */
+
+.party-hat {
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    left: 50%;
+    transform: translateX(-43%) rotate(-8deg);
+    width: clamp(45px, 14vw, 58px);
+    height: clamp(60px, 18vw, 75px);
+    background: #ded34e;
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.party-hat::before {
+    content: "";
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    background: #ed1c24;
+    border-radius: 50%;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.party-hat::after {
+    content: "HAPPY\A BIRTHDAY!";
+    white-space: pre;
+    position: absolute;
+    top: 29px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #263f7c;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 7px;
+    line-height: 1;
+    text-align: center;
+}
+
+/* CAKE */
+
+.cake {
+    position: absolute;
+    z-index: 8;
+    left: calc(50% - 125px);
+    bottom: 10px;
+    width: clamp(50px, 16vw, 64px);
+    height: clamp(38px, 12vw, 48px);
+    background: #f2dfa5;
+    border: 4px solid #75a6b5;
+    border-radius: 12px 12px 17px 17px;
+    transform: rotate(-4deg);
+}
+
+.cake::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -14px;
+    width: 6px;
+    height: 15px;
+    background: #e4af43;
+    transform: translateX(-50%);
+}
+
+/* BIRTHDAY TEXT */
+
+.birthday-title {
+    color: white;
+    font-size: clamp(19px, 5.5vw, 23px);
+    line-height: 1.2;
+    font-weight: 400;
+    margin-bottom: 18px;
+}
+
+.birthday-message {
+    color: white;
+    font-size: clamp(17px, 4.8vw, 20px);
+    line-height: 1.38;
+}
+
+.birthday-message p {
+    margin-bottom: 20px;
+}
+
+.final-message {
+    text-align: center;
+    font-size: clamp(20px, 6vw, 24px);
+    line-height: 1.2;
+    margin: 40px 0 28px;
+}
+
+/* REPLAY BUTTON */
+
+.replay-btn {
+    display: block;
+    margin: auto;
+    padding: 9px 27px;
+    border: 2px solid white;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, .12);
+    color: white;
+    font-family: 'Patrick Hand', cursive;
+    font-size: clamp(18px, 5vw, 21px);
+    cursor: pointer;
+    transition: .25s;
+}
+
+.replay-btn:active {
+    transform: scale(.9);
+}
+
+.replay-btn:hover {
+    background: white;
+    color: #ed1c24;
+}
+
+/* MUSIC BUTTON */
+
+.music-button {
+    position: fixed;
+    right: 14px;
+    bottom: 14px;
+    z-index: 100;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, .8);
+    background: rgba(0, 0, 0, .16);
+    color: white;
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* FLOATING HEARTS */
+
+.heart {
+    position: fixed;
+    bottom: -30px;
+    z-index: 2;
+    color: rgba(255, 255, 255, .55);
+    pointer-events: none;
+    animation: heartFloat linear forwards;
+}
+
+@keyframes heartFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+
+    15% {
+        opacity: .6;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-110vh) rotate(30deg);
+    }
+}
+
+/* RESPONSIVE */
+
+@media (min-width: 700px) {
+    .email-card {
+        width: min(80vw, 850px);
+    }
+
+    .birthday-message {
+        max-width: 750px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-height: 650px) {
+    #page1 {
+        padding-top: 15px;
+        padding-bottom: 25px;
+    }
+
+    .intro-title {
+        margin-bottom: 15px;
+    }
+
+    .envelope-container {
+        transform: scale(.78);
+        margin-bottom: 0;
+    }
+
+    .email-hint {
+        font-size: 24px;
+    }
+
+    .photo-area {
+        min-height: 225px;
+    }
+
+    .photo-wrapper {
+        transform: scale(.85);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+    <!-- PAGE 1: ENVELOPE -->
+
+    <section id="page1" class="page active">
+
+        <h1 class="intro-title">
+            Hey, Alex! ♡
+        </h1>
+
+        <div class="envelope-container"
+             id="envelope"
+             onclick="openEnvelope()">
+
+            <div class="envelope">
+
+                <div class="envelope-flap"></div>
+
+                <div class="envelope-heart">
+                    ♥
+                </div>
+
+            </div>
+        </div>
+
+        <div class="email-hint">
+            You've got a little surprise!
+        </div>
+
+    </section>
+
+
+    <!-- PAGE 2: SURPRISE MESSAGE -->
+
+    <section id="page2" class="page">
+
+        <div class="email-card">
+
+            <span class="email-label">
+                From:
+            </span>
+
+            <span class="email-value">
+                Aurora, your favorite person ♡
+            </span>
+
+            <span class="email-label">
+                To:
+            </span>
+
+            <span class="email-value">
+                Alex
+            </span>
+
+            <div class="email-message-label">
+                Message:
+            </div>
+
+            <div class="email-message">
+                A little surprise just for you, Alex! ♡
+            </div>
+
+            <button class="attachment"
+                    onclick="openBirthday()">
+                Open your surprise
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- PAGE 3: BIRTHDAY LETTER -->
+
+    <section id="page3" class="page">
+
+        <div class="bunting">
+
+            <div class="bunting-line"></div>
+
+            <div class="flag"></div>
+            <div class="flag"></div>
+            <div class="flag"></div>
+            <div class="flag"></div>
+            <div class="flag"></div>
+            <div class="flag"></div>
+            <div class="flag"></div>
+            <div class="flag"></div>
+            <div class="flag"></div>
+            <div class="flag"></div>
+            <div class="flag"></div>
+            <div class="flag"></div>
+
+        </div>
+
+        <div class="birthday-content">
+
+            <!-- YOUR PHOTO -->
+
+            <div class="photo-area">
+
+                <div class="photo-wrapper">
+
+                    <img
+                        src="foto.png"
+                        class="person-photo"
+                        alt="Birthday photo of Alex">
+
+                </div>
+
+            </div>
+
+            <!-- BIRTHDAY TITLE -->
+
+            <h1 class="birthday-title">
+                Happy Birthday, Alex! ♡
+            </h1>
+
+            <!-- BIRTHDAY LETTER -->
+
+            <div class="birthday-message">
+
+                <p>
+                    I hope this new year of your life helps you grow
+                    into an even more wonderful person. I'm sorry I
+                    can't be there to wish you a happy birthday in
+                    person.
+
+                    I just want to thank you for always trying your
+                    best with me and for being so patient with my
+                    childish moments. Please stay the same sweet
+                    person with me, okay?
+
+                    I love you more than words can say, and I hope
+                    you'll keep choosing us. Please don't get tired
+                    of my silly, childish side, hehe.
+
+                    I wish I could say all of this while holding you
+                    close, give you a big hug, and surprise you in
+                    person. I miss you so much, and sometimes it
+                    makes me a little sad that I can't be there
+                    with you.
+
+                    Be good over there, take care of your heart and
+                    eyes, and remember that someone here is always
+                    cheering for you and loving you.
+
+                    Happy birthday once again, my love. ♡
+                </p>
+
+                <div class="final-message">
+                    With all my love, Aurora ♡
+                </div>
+
+                <button class="replay-btn"
+                        onclick="replay()">
+                    ↻ Start Again
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- BACKGROUND MUSIC -->
+
+    <audio id="music" loop preload="auto">
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <button class="music-button"
+            id="musicButton"
+            onclick="toggleMusic()"
+            aria-label="Toggle background music">
+        ♪
+    </button>
+
+</div>
+
+
+<script>
+
+/* ELEMENTS */
+
+const page1 = document.getElementById("page1");
+const page2 = document.getElementById("page2");
+const page3 = document.getElementById("page3");
+
+const envelope = document.getElementById("envelope");
+const music = document.getElementById("music");
+const musicButton = document.getElementById("musicButton");
+
+let musicPlaying = false;
+
+
+/* BACKGROUND MUSIC */
+
+function startMusic() {
+
+    music.volume = 0.55;
+
+    music.play()
+        .then(() => {
+            musicPlaying = true;
+            musicButton.innerHTML = "♫";
+        })
+        .catch(() => {
+            musicPlaying = false;
+        });
+
+}
+
+
+/* TRY AUTOPLAY */
+
+window.addEventListener("load", () => {
+    startMusic();
+});
+
+
+/* MOBILE AUTOPLAY FALLBACK */
+
+document.addEventListener("click", () => {
+
+    if (!musicPlaying) {
+        startMusic();
+    }
+
+});
+
+
+/* MUSIC ON / OFF */
+
+function toggleMusic() {
+
+    if (music.paused) {
+
+        startMusic();
+
+    } else {
+
+        music.pause();
+        musicPlaying = false;
+        musicButton.innerHTML = "♪";
+
+    }
+
+}
+
+
+/* PAGE 1 → PAGE 2 */
+
+function openEnvelope() {
+
+    envelope.classList.add("open");
+
+    startMusic();
+
+    setTimeout(() => {
+
+        page1.classList.remove("active");
+        page2.classList.add("active");
+
+    }, 650);
+
+}
+
+
+/* PAGE 2 → PAGE 3 */
+
+function openBirthday() {
+
+    page2.classList.remove("active");
+    page3.classList.add("active");
+
+    page3.scrollTop = 0;
+
+    startMusic();
+
+}
+
+
+/* RESTART THE EXPERIENCE */
+
+function replay() {
+
+    page1.classList.remove("active");
+    page2.classList.remove("active");
+    page3.classList.remove("active");
+
+    page2.scrollTop = 0;
+    page3.scrollTop = 0;
+
+    envelope.classList.remove("open");
+
+    setTimeout(() => {
+        page1.classList.add("active");
+    }, 100);
+
+    startMusic();
+
+}
+
+
+/* FLOATING HEART ANIMATION */
+
+function createHeart() {
+
+    if (!page3.classList.contains("active")) {
+        return;
+    }
+
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+
+    heart.innerHTML = Math.random() > 0.5 ? "♡" : "♥";
+
+    heart.style.left = Math.random() * 100 + "%";
+
+    heart.style.fontSize =
+        (12 + Math.random() * 12) + "px";
+
+    heart.style.animationDuration =
+        (5 + Math.random() * 5) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 10000);
+
+}
+
+setInterval(createHeart, 1300);
+
+
+/* PREVENT DOUBLE-TAP ZOOM */
+
+let lastTouchEnd = 0;
+
+document.addEventListener("touchend", function(event) {
+
+    const now = Date.now();
+
+    if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+    }
+
+    lastTouchEnd = now;
+
+}, false);
+
+</script>
+
+</body>
+</html>
